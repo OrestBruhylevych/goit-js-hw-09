@@ -15,7 +15,7 @@ refs.stopBtn.setAttribute("disabled", "disabled");
 function onStartBtnClick() {
     intervalId = setInterval(() => chengeBgColorBody(), 1000);
     refs.startBtn.setAttribute("disabled", "disabled");
-refs.stopBtn.removeAttribute("disabled");
+    refs.stopBtn.removeAttribute("disabled");
 }
 
 function onStopBtnClick() { 
