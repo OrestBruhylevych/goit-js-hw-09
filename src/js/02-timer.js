@@ -11,6 +11,7 @@ const refs = {
 };
 
 let deadline;
+let intervalId;
 
 const options = {
   enableTime: true,
@@ -30,14 +31,14 @@ flatpickr(refs.input, options);
 
 function onStartBtnClick() {
 
-    setInterval(() => {
+        intervalId = setInterval(() => {
         const ms = validetedDeadline(deadline);
         const deadlineConvertObject = convertMs(ms);
         const formatedLeadingZero = addLeadingZero(deadlineConvertObject);
         addNumberOnScreen(formatedLeadingZero);
         refs.startBtn.setAttribute("disabled", "disabled");
-
-    }, 1000);
+   }, 1000);
+    
     refs.input.setAttribute("disabled", "disabled");
 }
 
@@ -54,6 +55,8 @@ function validetedDeadline(data) {
         refs.startBtn.removeAttribute("disabled");
         return (deadline - today);
     }
+
+   
 
 }
 
@@ -76,7 +79,11 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-function addLeadingZero({days, hours, minutes, seconds}) {
+function addLeadingZero({ days, hours, minutes, seconds }) {
+    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+        clearInterval(intervalId);
+    } 
+
     return {
         days: days >= 10 ? days: `0${days}`,
         hours: hours >= 10 ? hours: `0${hours}`,
@@ -87,6 +94,8 @@ function addLeadingZero({days, hours, minutes, seconds}) {
 }
 
 function addNumberOnScreen({ days, hours, minutes, seconds }) {
+
+
     refs.days.textContent = days;
     refs.hours.textContent = hours;
     refs.minutes.textContent = minutes;
