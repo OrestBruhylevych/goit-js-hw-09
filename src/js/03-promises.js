@@ -1,3 +1,5 @@
+import Notiflix from 'notiflix';
+
 const refs = {
   form: document.querySelector('.form'),
   btn: document.querySelector('button'),
@@ -39,9 +41,11 @@ function createPromise(position, delay) {
 
     setTimeout(() => {
       if (shouldResolve) {
-        resolve(console.log(`✅ Fulfilled promise ${position} in ${delay}ms`));
-  } else {
-        reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`));
+           Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        // resolve(console.log(`✅ Fulfilled promise ${position} in ${delay}ms`));
+      } else {
+        Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        // reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`));
   }
 
     }, delay)
